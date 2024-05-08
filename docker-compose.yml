@@ -22,11 +22,24 @@ services:
         networks:
             - sail
         depends_on:
-            - mysql
+            - postgres
             - redis
             - meilisearch
             - mailpit
             - selenium
+    postgres:
+        image: postgres:14-alpine
+        container_name: ${PROJECT_NAME}-postgres
+        ports:
+            - 5432:5432
+        volumes:
+            - ~/apps/postgres:/var/lib/postgresql/data 
+        environment:
+            - POSTGRES_USER: ${POSTGRES_USER}
+            - POSTGRES_PASSWORD: '${DB_PASSWORD}'
+            - POSTGRES_DB: '${DB_DATABASE}'
+        networks:
+            - sail
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
