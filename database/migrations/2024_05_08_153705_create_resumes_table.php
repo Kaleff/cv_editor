@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone', 20)->nullable();
             $table->string('address')->nullable();
-            $table->foreignId('author_id');
         });
 
         Schema::table('resumes', function (Blueprint $table) {

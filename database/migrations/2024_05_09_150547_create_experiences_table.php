@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('role');
             $table->enum('type', ['Full-time', 'Part-time', 'Internship']);
             $table->text('description');
-            $table->foreignId('resume_id');
         });
 
         Schema::table('experiences', function (Blueprint $table) {
