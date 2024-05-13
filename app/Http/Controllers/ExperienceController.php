@@ -12,15 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class ExperienceController extends Controller
 {
     /**
-     * Get experiences of the current user
-     * GET /experience
-     */
-    public function index(): View {
-        $experiences = Experience::where('author_id', Auth::id());
-        return view('experience.list', ['experiences' => $experiences]);
-    }
-
-    /**
      * Show the particular experience
      * GET /experience/{id}
      */
