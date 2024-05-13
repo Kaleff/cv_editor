@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -20,5 +21,6 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::resources([
-    'resume' => ResumeController::class
+    'resume' => ResumeController::class,
+    'experience' => ExperienceController::class
 ]);
