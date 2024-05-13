@@ -54,8 +54,8 @@ class UserRequest extends FormRequest
             'email.unique' => 'Account with provided email already exists',
             'email.max' => "Email should be at most $this->email_max symbols long",
             'password.required' => 'Password is required to register',
-            'password.min' => "Password should be at least $this->name_min symbols long",
-            'password.max' => "Password should be at most $this->name_max symbols long"
+            'password.min' => "Password should be at least $this->password_min symbols long",
+            'password.max' => "Password should be at most $this->password_max symbols long"
         ];
     }
 }
