@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResumeRequest;
 use App\Models\Resume;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,8 @@ class ResumeController extends Controller
      * GET /resume
      */
     public function index(): View {
-        $resumes = Resume::where('author_id', $id = Auth::id());
+        $userId = Auth::id();
+        $resumes = User::find($userId)->resumes();
         return view('resume.list', ['resumes' => $resumes]);
     }
 
@@ -25,7 +27,8 @@ class ResumeController extends Controller
      */
     public function show(int $id): View {
         $resume = Resume::find($id);
-        return view('resume.show', ['resume' => $resume]);
+        $resumeExperiences = $resume->experiences();
+        return view('resume.show', ['resume' => $resume, 'experiences' => $resumeExperiences]);
     }
 
     /**
@@ -51,7 +54,8 @@ class ResumeController extends Controller
      */
     public function edit(int $id): View {
         $resume = Resume::find($id);
-        return view('resume.form', ['resume' => $resume]);
+        $resumeExperiences = $resume->experiences();
+        return view('resume.form', ['resume' => $resume, 'experiences' => $resumeExperiences]);
     }
 
     /**
