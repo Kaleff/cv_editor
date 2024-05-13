@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -20,8 +20,8 @@ class UserController extends Controller
      */
     public function login(Request $request): RedirectResponse {
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required']
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
 
         if(Auth::attempt($credentials)) {
@@ -42,12 +42,8 @@ class UserController extends Controller
     /**
      * Proccess the register request
      */
-    public function register(Request $request): RedirectResponse {
-        $validatedData = $request->validate([
-            'email' => ['required', 'unique:users', 'max:255'],
-            'password' => ['required', 'min:4', 'confirmed'],
-            'name' => ['required', 'min:3']
-        ]);
+    public function register(UserRequest $request): RedirectResponse {
+        $validatedData = $request->validated();
         // Hash password
         $validatedData['password'] = bcrypt($validatedData['password']);
         $user = User::create($validatedData);
