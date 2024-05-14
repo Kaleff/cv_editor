@@ -17,7 +17,8 @@ class ResumeController extends Controller
      */
     public function index(): View {
         $userId = Auth::id();
-        $resumes = User::find($userId)->resumes();
+        $user = User::find($userId);
+        $resumes = $user->resumes()->get();
         return view('resume.list', ['resumes' => $resumes]);
     }
 
@@ -64,6 +65,7 @@ class ResumeController extends Controller
      */
     public function store(ResumeRequest $request): RedirectResponse {
         $validatedData = $request->validated();
+        $validatedData['user_id'] = Auth::id();
         Resume::create($validatedData);
         return redirect('/resume');
     }
