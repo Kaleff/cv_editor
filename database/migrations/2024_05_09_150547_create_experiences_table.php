@@ -35,7 +35,6 @@ return new class extends Migration
     {
         Schema::table('experiences', function (Blueprint $table) {
             $table->dropForeign('experiences_resume_id_foreign');
-            $table->dropIndex('experiences_resume_id_index');
             $table->dropColumn('resume_id');
         });
         Schema::dropIfExists('experiences');

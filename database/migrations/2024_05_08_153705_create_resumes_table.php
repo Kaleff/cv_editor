@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('phone', 20)->nullable();
+            $table->bigInteger('phone')->nullable();
             $table->string('address')->nullable();
         });
 
         Schema::table('resumes', function (Blueprint $table) {
-            $table->foreignId('author_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,9 +30,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('resumes', function (Blueprint $table) {
-            $table->dropForeign('resumes_author_id_foreign');
-            $table->dropIndex('resumes_author_id_index');
-            $table->dropColumn('author_id');
+            $table->dropForeign('resumes_user_id_foreign');
+            $table->dropColumn('user_id');
         });
         Schema::dropIfExists('resumes');
     }
