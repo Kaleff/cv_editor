@@ -27,7 +27,7 @@ class UserController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return to_route('homepage');
+            return to_route('resume_list');
         }
 
         return back()->withErrors([
@@ -48,7 +48,7 @@ class UserController extends Controller
         $validatedData['password'] = bcrypt($validatedData['password']);
         $user = User::create($validatedData);
         auth()->login($user);
-        return to_route('homepage');
+        return to_route('resume_list');
     }
 
     public function logout(Request $request): RedirectResponse {
