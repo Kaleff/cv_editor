@@ -34,9 +34,9 @@ class ExperienceRequest extends FormRequest
     {
         return [
             'start_date' => 'date|required|before:today',
-            'end_date' => 'date|after:start_day|before:today',
+            'end_date' => 'date|after:start_day|before:today|nullable',
             'company' => ['required', "min:$this->company_min", "max:$this->company_max"],
-            'location' => ["min:$this->location_min" , "max:$this->location_max"],
+            'location' => ["min:$this->location_min" , "max:$this->location_max", 'nullable'],
             'role' => ["required", "min:$this->role_min", "max:$this->role_max"],
             'description' => ["min:$this->description_min", "required"],
             'type'=> 'in:Full-time,Part-time,Internship|required'

@@ -11,7 +11,7 @@ class ResumeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class ResumeRequest extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:100|alpha_num:ascii',
-            'phone' => 'regex:/(+)[0-9]{11}/',
-            'address' => 'min:5|max:100'
+            'phone' => 'numeric|digits:11|nullable',
+            'address' => 'min:5|max:100|nullable'
         ];
     }
 
