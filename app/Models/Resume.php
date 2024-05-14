@@ -10,6 +10,18 @@ class Resume extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'phone',
+        'address',
+        'user_id'
+    ];
+
     public function experiences(): HasMany
     {
         return $this->hasMany(Experience::class);
