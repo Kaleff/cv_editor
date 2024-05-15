@@ -1,3 +1,42 @@
+body {
+  font-size: 20px;
+  height: 100vh;
+}
+
 .errorMessage {
   color: #990000;
+  margin-bottom: 20px;
+}
+
+.navbar {
+  background-color: #28242c;
+  border-radius: 0;
+  padding: 1.2rem;
+  min-height: none !important;
+}
+
+.logo {
+  color: azure !important;
+  text-decoration: none !important;
+}
+
+.flex {
+  display: flex;
+}
+
+.headerAuth {
+  margin-left: auto;
+  gap: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.button-row {
+  padding-left: 1.5rem;
+}
+
+.plusie {
+  margin-left: -1.7rem;
 }
