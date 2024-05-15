@@ -22,7 +22,7 @@
         Login
       </button>
 
-      <a href="{{ route('homepage') }}" type="button" class="btn btn-info"> Back </a>
+      <a href="{{ route('homepage') }}"><button type="button" class="btn btn-info">Back</button></a>
     </div>
   </form>
 </div>
