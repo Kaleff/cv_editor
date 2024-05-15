@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('end_date')->nullable()->default(null);
             $table->string('location')->nullable();
             $table->string('role');
-            $table->enum('type', ['Full-time', 'Part-time', 'Internship']);
+            $table->enum('type', ['Full-time', 'Part-time', 'Internship', 'Education']);
             $table->text('description');
         });
 
