@@ -12,29 +12,21 @@ use Illuminate\Support\Facades\Auth;
 class ExperienceController extends Controller
 {
     /**
-     * Show the particular experience
-     * GET /experience/{id}
-     */
-    public function show(int $id): View {
-        $experience = Experience::find($id);
-        return view('experience.show', ['experience' => $experience]);
-    }
-
-    /**
      * Delete the particular experience
      * DELETE /experience/{id}
      */
     public function destroy(int $id): RedirectResponse {
+        $resume_id = Experience::find($id)['resume_id'];
         Experience::destroy($id);
-        return redirect('/experience');
+        return to_route('resume_show', ['resume' => $resume_id]);
     }
 
     /**
      * Show the form for the creation of new experience
      * GET /experience/create
      */
-    public function create(): View {
-        return view('experience.form');
+    public function create(int $id): View {
+        return view('experience.form', ['resume_id' => $id, 'edit' => false, 'experience' => false]);
     }
 
     /**
@@ -43,7 +35,7 @@ class ExperienceController extends Controller
      */
     public function edit(int $id): View {
         $experience = Experience::find($id);
-        return view('experience.form', ['experience' => $experience]);
+        return view('experience.form', ['experience' => $experience, 'edit' => true]);
     }
 
     /**
@@ -53,7 +45,7 @@ class ExperienceController extends Controller
     public function store(ExperienceRequest $request): RedirectResponse {
         $validatedData = $request->validated();
         Experience::create($validatedData);
-        return redirect('/experience');
+        return to_route('resume_show', ['resume' => $validatedData['resume_id']]);
     }
 
     /**
@@ -63,10 +55,14 @@ class ExperienceController extends Controller
     public function update(int $id, ExperienceRequest $request): RedirectResponse {
         $validatedData = $request->validated();
         $experience = Experience::find($id);
-        $experience->name = $validatedData->name;
-        $experience->phone = $validatedData->phone;
-        $experience->address = $validatedData->address;
+        $experience->company = $validatedData['company'];
+        $experience->start_date = $validatedData['start_date'];
+        $experience->end_date = $validatedData['end_date'];
+        $experience->location = $validatedData['location'] ? $validatedData['location'] : null;
+        $experience->role = $validatedData['role'];
+        $experience->type = $validatedData['type'];
+        $experience->description = $validatedData['description'];
         $experience->save();
-        return redirect('/experience');
+        return to_route('resume_show', ['resume' => $experience['resume_id']]);
     }
 }

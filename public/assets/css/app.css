@@ -26,7 +26,7 @@ body {
 
 .headerAuth {
   margin-left: auto;
-  gap: 20px;
+  gap: 18px;
 }
 
 .text-center {
@@ -39,4 +39,38 @@ body {
 
 .plusie {
   margin-left: -1.7rem;
+}
+
+button {
+  font-size: 18px !important;
+}
+
+h4 {
+  font-size: 21px;
+}
+
+h3 {
+  font-size: 23px;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h1 {
+  font-size: 29px;
+}
+
+.cv_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.createBlock {
+  margin-top: 35px;
+}
+
+.resumeBlock {
+  margin:20px 0;
 }

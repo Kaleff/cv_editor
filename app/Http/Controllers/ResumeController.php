@@ -28,10 +28,11 @@ class ResumeController extends Controller
      */
     public function show(int $id): View {
         $resume = Resume::find($id);
-        $resumeExperiences = $resume->experiences();
+        $resumeExperiences = $resume->experiences()->where('type', '!=', 'Education')->get();
+        $education = $resume->experiences()->where('type', 'Education')->get();
         $userId = Auth::id();
         $user = User::find($userId);
-        return view('resume.show', ['resume' => $resume, 'experiences' => $resumeExperiences, 'user' => $user]);
+        return view('resume.show', ['resume' => $resume, 'experiences' => $resumeExperiences, 'user' => $user, 'education' => $education]);
     }
 
     /**

@@ -39,7 +39,8 @@ class ExperienceRequest extends FormRequest
             'location' => ["min:$this->location_min" , "max:$this->location_max", 'nullable'],
             'role' => ["required", "min:$this->role_min", "max:$this->role_max"],
             'description' => ["min:$this->description_min", "required"],
-            'type'=> 'in:Full-time,Part-time,Internship,Education|required'
+            'type'=> 'in:Full-time,Part-time,Internship,Education|required',
+            'resume_id' => 'integer',
         ];
     }
 
@@ -66,7 +67,7 @@ class ExperienceRequest extends FormRequest
             'start_date.date' => 'Please make sure the given date is valid',
             'end_date.date' => 'Please make sure the given date is valid',
             'start_date.required' => 'The start date is required',
-            'start_date.before' => 'The start date should be eariler than today',
+            'start_date.before' => 'The start date should be eariler than today or the start date',
             'end_date.before' => 'The end date should be earlier than today',
             'end_date.after' => 'The end date should be later than the start date'
         ];
