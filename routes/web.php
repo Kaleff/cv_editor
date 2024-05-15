@@ -27,6 +27,6 @@ Route::resource('resume', ResumeController::class)
     ->name('create', 'resume_create_form')
     ->name('edit', 'resume_edit_form')
     ->name('index', 'resume_list')->middleware('auth');
-Route::resources([
-    'experience' => ExperienceController::class
-]);
+Route::resource('experience', ExperienceController::class)
+    ->name('create', 'experience_create_form')
+    ->name('edit', 'experience_edit_form');
