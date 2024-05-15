@@ -62,15 +62,24 @@
 
     <div class="form-group row">
       <label for="description" class="col-sm-3 col-form-label">Description:</label>
-      <input type="text" name="description" value="{{ $experience ? $experience['description'] : old('description') }}" />
+      <textarea name="description" rows="7" cols="90">{{ $experience ? $experience['description'] : old('description') }}</textarea>
     </div>
     @error('description')
     <p class="errorMessage">{{ $message }}</p>
     @enderror
 
+    @if(!$edit)
+      <input type="hidden" name="resume_id" value="{{ $resume_id }}">
+    @endif
+
     <button type="submit" class="btn btn-light">
       Submit
     </button>
+    @if($experience)
+      <a href="{{ route('resume_show', ['resume' => $experience['resume_id']]) }}"><button type="button" class="btn btn-info">Back</button></a>
+    @else
+      <a href="{{ route('resume_show', ['resume' => $resume_id]) }}"><button type="button" class="btn btn-info">Back</button></a>
+    @endif
   </form>
 </div>
 @endsection
