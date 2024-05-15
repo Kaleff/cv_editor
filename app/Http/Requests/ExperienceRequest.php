@@ -22,7 +22,7 @@ class ExperienceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -39,7 +39,7 @@ class ExperienceRequest extends FormRequest
             'location' => ["min:$this->location_min" , "max:$this->location_max", 'nullable'],
             'role' => ["required", "min:$this->role_min", "max:$this->role_max"],
             'description' => ["min:$this->description_min", "required"],
-            'type'=> 'in:Full-time,Part-time,Internship|required'
+            'type'=> 'in:Full-time,Part-time,Internship,Education|required'
         ];
     }
 
@@ -61,7 +61,7 @@ class ExperienceRequest extends FormRequest
             'role.max' => "The role name should be at most $this->role_max symbols long",
             'description.required' => 'Description of the experience is required',
             'description.min' => "Description of the experience should be at least $this->description_min symbols long",
-            'type.in' => 'The choice is limited to Full-time, Part-time and Internship',
+            'type.in' => 'The choice is limited to Full-time, Part-time, Education and Internship',
             'type.required' => 'Type of the exprience should be specified',
             'start_date.date' => 'Please make sure the given date is valid',
             'end_date.date' => 'Please make sure the given date is valid',
