@@ -1,34 +1,29 @@
 @extends('layout')
 
 @section('content')
-<section>
+<div class="container">
   <form method="POST" action="/login" enctype="multipart/form-data">
     @csrf
-    <div class="mb-6">
-      <label for="email" class="inline-block text-lg mb-2">Email</label>
+    <div class="form-group row">
+      <label for="email" class="col-sm-3 col-form-label">Email</label>
       <input type="text" class="" name="email"
         value="{{old('email')}}" />
-
-      @error('email')
-      <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-      @enderror
     </div>
-    <div class="mb-6">
-      <label for="password" class="inline-block text-lg mb-2">Password</label>
+    @error('email')
+      <p class="errorMessage">{{$message}}</p>
+      @enderror
+    <div class="form-group row">
+      <label for="password" class="col-sm-3 col-form-label">Password</label>
       <input type="password" class="border border-gray-200 rounded p-2 w-full" name="password" />
-
-      @error('password')
-      <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-      @enderror
     </div>
 
-    <div class="mb-6">
-      <button class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
+    <div class="form-group row row button-row">
+      <button type="submit" class="btn btn-light">
         Login
       </button>
 
-      <a href="/" class="text-black ml-4"> Back </a>
+      <a href="{{ route('homepage') }}" type="button" class="btn btn-info"> Back </a>
     </div>
   </form>
-</section>
+</div>
 @endsection
