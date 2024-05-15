@@ -38,7 +38,7 @@ class ResumeController extends Controller
      */
     public function destroy(int $id): RedirectResponse {
         Resume::destroy($id);
-        return redirect('/resume');
+        return to_route('resume_list');
     }
 
     /**
@@ -46,7 +46,7 @@ class ResumeController extends Controller
      * GET /resume/create
      */
     public function create(): View {
-        return view('resume.form');
+        return view('resume.form', ['edit' => false, 'resume' => false]);
     }
 
     /**
@@ -55,8 +55,7 @@ class ResumeController extends Controller
      */
     public function edit(int $id): View {
         $resume = Resume::find($id);
-        $resumeExperiences = $resume->experiences();
-        return view('resume.form', ['resume' => $resume, 'experiences' => $resumeExperiences]);
+        return view('resume.form', ['resume' => $resume, 'edit' => true]);
     }
 
     /**
@@ -67,20 +66,20 @@ class ResumeController extends Controller
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
         Resume::create($validatedData);
-        return redirect('/resume');
+        return to_route('resume_list');
     }
 
     /**
      * Edit and validate the data about the existing resume
-     * PUT/PATCH /resume/{id}
+     * POST /resume/{id}/update
      */
     public function update(int $id, ResumeRequest $request): RedirectResponse {
         $validatedData = $request->validated();
         $resume = Resume::find($id);
-        $resume->name = $validatedData->name;
-        $resume->phone = $validatedData->phone;
-        $resume->address = $validatedData->address;
+        $resume->name = $validatedData['name'];
+        $resume->phone = $validatedData['phone'];
+        $resume->address = $validatedData['address'];
         $resume->save();
-        return redirect('/resume');
+        return to_route('resume_list');
     }
 }
