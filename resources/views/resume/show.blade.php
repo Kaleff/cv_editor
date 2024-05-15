@@ -29,6 +29,25 @@
       </form>
     @endforeach
   @endif
+
+  @if (count($experiences) > 0)
+    <h3 class="text-center">Education</h3>
+    @foreach ($educations as $education)
+      <h4>{{ $education['company'] }} | @if($education['location'])
+        {{ $education['location'] }}        
+      @endif</h4>
+      <h4>{{ $education['role'] }} | {{ $education['start_date'] }} @if($education['end_date'])
+        -- {{ $education['end_date'] }}  
+      @endif</h4>
+      <p>{{ $education['description'] }}</p>
+      <a href="{{ route('education_edit_form', ['education' => $education['id']]) }}"><button class="btn btn-light">Edit Entry</button></a>
+      <button onclick="document.getElementById('{{ 'delete_entry_'.$education['id'] }}').submit();" class="btn btn-danger">Delete Entry</button>
+      <form id="{{ 'delete_entry_'.$education['id'] }}" action="{{ route('education_delete', ['education' => $education['id']]) }}" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
+      </form>
+    @endforeach
+  @endif
   <br />
   <div class="cv_buttons"><a href="{{ route('experience_create_form', ['id' => $resume['id']]) }}"><button class="btn btn-light">Add an experience/education</button></a>
     <a href="{{ route('resume_list') }}"><button class="btn btn-info">Back to resume list</button></a></div>
