@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
         return [
             'email' => ["required", "unique:users", "max:$this->email_max", "email"],
             'password' => ["required", "min:$this->password_min", "max:$this->password_max", "confirmed"],
-            'name' => ["required", "min:$this->name_min ", "max:$this->name_max", "alpha_num:ascii"]
+            'name' => ["required", "min:$this->name_min ", "max:$this->name_max", "regex:/[a-zA-Z\s]+$/i"]
         ];
     }
 
@@ -48,7 +48,7 @@ class UserRequest extends FormRequest
             'name.required' => 'Name for the document is required',
             'name.min' => "Name should be at least $this->name_min symbols long",
             'name.max' => "Name should be at most $this->name_max symbols long",
-            'name.alpha_num' => 'Make sure that file name does not contain special or non-ascii characters ',
+            'name.regex' => 'Make sure that file name does not contain numbers, special or non-ascii characters ',
             'email.email' => 'Make sure to provide the valid e-mail',
             'emai.required' => 'Email is required for the registration',
             'email.unique' => 'Account with provided email already exists',

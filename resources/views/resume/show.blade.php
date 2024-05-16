@@ -17,7 +17,7 @@
       <h4>{{ $experience['company'] }} | @if($experience['location'])
         {{ $experience['location'] }}        
       @endif</h4>
-      <h4>{{ $experience['role'] }} | {{ $experience['start_date'] }} @if($experience['end_date'])
+      <h4>{{ $experience['role'] }} - {{ $experience['type'] }}| {{ $experience['start_date'] }} @if($experience['end_date'])
         -- {{ $experience['end_date'] }}  
       @endif</h4>
       <p>{{ $experience['description'] }}</p>
@@ -30,7 +30,7 @@
     @endforeach
   @endif
 
-  @if (count($experiences) > 0)
+  @if (count($educations) > 0)
     <h3 class="text-center">Education</h3>
     @foreach ($educations as $education)
       <h4>{{ $education['company'] }} | @if($education['location'])
@@ -40,9 +40,9 @@
         -- {{ $education['end_date'] }}  
       @endif</h4>
       <p>{{ $education['description'] }}</p>
-      <a href="{{ route('education_edit_form', ['education' => $education['id']]) }}"><button class="btn btn-light">Edit Entry</button></a>
+      <a href="{{ route('experience_edit_form', ['experience' => $education['id']]) }}"><button class="btn btn-light">Edit Entry</button></a>
       <button onclick="document.getElementById('{{ 'delete_entry_'.$education['id'] }}').submit();" class="btn btn-danger">Delete Entry</button>
-      <form id="{{ 'delete_entry_'.$education['id'] }}" action="{{ route('education_delete', ['education' => $education['id']]) }}" method="POST" style="display: none;">
+      <form id="{{ 'delete_entry_'.$education['id'] }}" action="{{ route('experience_delete', ['experience' => $education['id']]) }}" method="POST" style="display: none;">
         @csrf
         @method('DELETE')
       </form>

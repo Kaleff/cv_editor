@@ -22,7 +22,7 @@ class ResumeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:5|max:100|alpha_num:ascii',
+            'name' => 'required|min:5|max:100|regex:/^[a-z0-9-_]+$/i',
             'phone' => 'numeric|digits:11|nullable',
             'address' => 'min:5|max:100|nullable'
         ];
@@ -39,8 +39,8 @@ class ResumeRequest extends FormRequest
             'name.required' => 'Name for the document is required',
             'name.min' => 'Name should be at least 5 symbols long',
             'name.max' => 'Name should be at most 100 symbols long',
-            'name.alpha_num'=> 'Make sure that file name does not contain special or non-ascii characters ',
-            'phone.regex' => 'Please provide the phone in the format of "+(country_code)(phone)" ',
+            'name.regex'=> 'Make sure that file name does not contain special or non-ascii characters ',
+            'phone.digits' => 'Please provide the phone that is 11 digit long" ',
             'address.min' => 'Address should be at least 5 symbols long',
             'address.max' => 'Address should be at most 100 symbols long'
         ];
