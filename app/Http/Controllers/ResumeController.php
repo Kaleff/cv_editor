@@ -8,9 +8,23 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ResumeController extends Controller
 {
+    /**
+     * Get info for displaying on a resume
+     * Created separate helper function since this code is used in several places
+     */
+    private function getResumeData(int $id) {
+        $resume = Resume::find($id);
+        $resumeExperiences = $resume->experiences()->where('type', '!=', 'Education')->get()->sortByDesc('start_date', SORT_NATURAL);
+        $educations = $resume->experiences()->where('type', 'Education')->get()->sortByDesc('start_date', SORT_NATURAL);
+        $userId = Auth::id();
+        $user = User::find($userId);
+        return ['resume' => $resume, 'experiences' => $resumeExperiences, 'user' => $user, 'educations' => $educations];
+    }
+
     /**
      * Get resumes of the current user
      * GET /resume
@@ -27,12 +41,7 @@ class ResumeController extends Controller
      * GET /resume/{id}
      */
     public function show(int $id): View {
-        $resume = Resume::find($id);
-        $resumeExperiences = $resume->experiences()->where('type', '!=', 'Education')->get()->sortByDesc('start_date', SORT_NATURAL);
-        $educations = $resume->experiences()->where('type', 'Education')->get()->sortByDesc('start_date', SORT_NATURAL);
-        $userId = Auth::id();
-        $user = User::find($userId);
-        return view('resume.show', ['resume' => $resume, 'experiences' => $resumeExperiences, 'user' => $user, 'educations' => $educations]);
+        return view('resume.show', $this->getResumeData($id));
     }
 
     /**
@@ -84,5 +93,14 @@ class ResumeController extends Controller
         $resume->address = $validatedData['address'];
         $resume->save();
         return to_route('resume_list');
+    }
+
+    /**
+     * Print/download Resume as a PDF File
+     */
+    public function print(int $id) {
+        $data = $this->getResumeData($id);
+        $pdf = Pdf::loadView('resume.document', $data);
+        return $pdf->download($data['resume']['name'].".pdf");
     }
 }

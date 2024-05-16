@@ -51,7 +51,8 @@
   <br />
   <div class="cv_buttons"><a href="{{ route('experience_create_form', ['id' => $resume['id']]) }}"><button class="btn btn-light">Add an experience/education</button></a>
     <a href="{{ route('resume_list') }}"><button class="btn btn-info">Back to resume list</button></a></div>
-    
+  <br />
+  <a class="cv_buttons bottom_margin" href="{{ route('document_print', ['id' => $resume['id']]) }}"><button class="btn btn-success">Print Document</button></a>
 </div>
 
 @endsection

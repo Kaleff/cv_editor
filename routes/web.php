@@ -36,3 +36,4 @@ Route::resource('experience', ExperienceController::class)
     ->name('destroy', 'experience_delete')->middleware('auth');
 
 Route::get('create_experience/{id}', [ExperienceController::class, 'create'])->name('experience_create_form')->middleware('auth');
+Route::get('resume-print/{id}', [ResumeController::class, 'print'])->name('document_print')->middleware('auth');
